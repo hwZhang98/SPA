@@ -1,15 +1,15 @@
 <template>
-  <div class="home">
-    <div></div>
+  <div class="user-box">
+    <div>我的</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+name: "User"
 }
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 
 </style>
