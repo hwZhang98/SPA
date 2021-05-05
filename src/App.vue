@@ -1,50 +1,40 @@
 <template>
   <div id="app">
-    <transition :name="transitionName">
-      <router-view class="router-view" />
-    </transition>
-    <nav-bar v-if="isShowNav"></nav-bar>
+    <router-view class="router-view" v-slot="{ Component }">
+      <transition :name="transitionName">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
 <script>
-import navBar from './components/NavBar'
+import {  reactive, toRefs} from 'vue'
+import { useRouter } from 'vue-router'
 export default {
-  data () {
-    return {
-      transitionName: 'slide-left',
-      isShowNav: true,
-      ShowMenuList: ['/', '/home', '/category', '/cart', '/user'], // 该变量为需要导航栏的数组
-    }
-  },
-  components: {
-    navBar
-  },
-  watch: {
-    $route(to, from) {
-      if (this.ShowMenuList.includes(to.path)) {
-        this.isShowNav = true
-      } else {
-        this.isShowNav = false
-      }
-      // 由主级到次级
-      // to.meta 能取到 route 路由参数中的 meta 属性
+  setup() {
+    const router = useRouter()
+    const state = reactive({
+      transitionName: 'slide-left'
+    })
+    router.beforeEach((to, from) => {
       if (to.meta.index > from.meta.index) {
-        // 通过改变变量名称控制左右滑动
-        this.transitionName = 'slide-left' // 向左滑动
+        state.transitionName = 'slide-left' // 向左滑动
       } else if (to.meta.index < from.meta.index) {
         // 由次级到主级
-        this.transitionName = 'slide-right'
+        state.transitionName = 'slide-right'
       } else {
-        this.transitionName = ''   //同级无过渡效果
+        state.transitionName = ''   // 同级无过渡效果
       }
+    })
+    return {
+      ...toRefs(state)
     }
-  }
+  },
 }
 </script>
 
 <style lang="less">
-@import "common/style/base";
 html, body {
   height: 100%;
   overflow-x: hidden;
@@ -52,12 +42,11 @@ html, body {
 }
 #app {
   height: 100%;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-
 .router-view{
   width: 100%;
   height: auto;
@@ -67,7 +56,6 @@ html, body {
   margin: 0 auto;
   -webkit-overflow-scrolling: touch;
 }
-
 .slide-right-enter-active,
 .slide-right-leave-active,
 .slide-left-enter-active,
@@ -78,7 +66,7 @@ html, body {
   position: absolute;
   backface-visibility: hidden;
 }
-.slide-right-enter-from{
+.slide-right-enter{
   opacity: 0;
   transform: translate3d(-100%, 0, 0);
 }
@@ -86,12 +74,15 @@ html, body {
   opacity: 0;
   transform: translate3d(100%, 0, 0);
 }
-.slide-left-enter-from{
+.slide-left-enter{
   opacity: 0;
   transform: translate3d(100%, 0, 0);
 }
 .slide-left-leave-active{
   opacity: 0;
   transform: translate3d(-100%, 0, 0);
+}
+.van-badge--fixed {
+  z-index: 1000;
 }
 </style>

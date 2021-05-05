@@ -13,14 +13,14 @@ const routes = [
       index: 1  // 添加 meta 属性，约定 1 为第一级
     }
   },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
-  //   meta: {
-  //     index: 1
-  //   }
-  // },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
+    meta: {
+      index: 1
+    }
+  },
   {
     path: '/about',
     name: 'about',

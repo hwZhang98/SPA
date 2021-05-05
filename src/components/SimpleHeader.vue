@@ -1,48 +1,70 @@
 <template>
-  <header class="simple-header">
-    <i class="nbicon nbfanhui" @click="goBack"></i>
-    <div class="simple-header-title">{{title}}</div>
-    <i class="nbicon nbmore"></i>
+  <header class="simple-header van-hairline--bottom">
+    <i v-if="!isback" class="nbicon nbiconfanhui" @click="goBack"></i>
+    <i v-else>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>
+    <div class="simple-header-name">{{ name }}</div>
+    <i class="nbicon nbiconmore"></i>
   </header>
+  <div class="block" />
 </template>
 
 <script>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
-  name: "SimpleHeader",
-  //外部传入的title属性，可以定义类型和默认值
   props: {
-    title: {
+    name: {
       type: String,
       default: ''
+    },
+    back: {
+      type: String,
+      default: ''
+    },
+    noback: {
+      type: Boolean,
+      default: false
     }
   },
-  methods: {
-    // 点击头部组件左侧返回按钮，让路由返回上一页
-    goBack() {
-      this.$router.go(-1);
+  emits: ['callback'],
+  setup(props, ctx) {
+    const isback = ref(props.noback)
+    const router = useRouter()
+    const goBack = () => {
+      if (!props.back) {
+        router.go(-1)
+      } else {
+        router.push({ path: props.back })
+      }
+      ctx.emit('callback')
+    }
+    return {
+      goBack,
+      isback
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-  @import '../common/style/mixin';
-  .simple-header {
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:10000;
-    .fj();
-    .wh(100%,44px);
-    line-height:44px;
-    padding:0 10px;
-    .boxSizing();
-    color: #252525;
-    background: #fff;
-    border-bottom: 1px solid #dcdcdc;
-    .simple-header-title {
-      font-size: 14px;
-    }
+@import '../common/style/mixin';
+.simple-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  .fj();
+  .wh(100%, 44px);
+  line-height: 44px;
+  padding: 0 10px;
+  .boxSizing();
+  color: #252525;
+  background: #fff;
+  .simple-header-name {
+    font-size: 14px;
   }
-
+}
+.block {
+  height: 44px;
+}
 </style>
