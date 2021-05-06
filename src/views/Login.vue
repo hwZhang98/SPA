@@ -30,7 +30,7 @@
             placeholder="输入验证码"
             v-model="verify"
         >
-          <template #button>     <!--这里是vant 的 field输入框中的自定义输入框尾部-->
+          <template #button>      <!--这里是vant 的 field输入框中的自定义输入框尾部-->
             <vue-img-verify ref="verifyRef" />
           </template>
         </van-field>

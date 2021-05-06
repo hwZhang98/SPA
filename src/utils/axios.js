@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { Toast } from 'vant'
+import router from '../router'
 
 // 本次项目的请求地址为 47.99.134.126:28019/api/v1 且开发环境和生产环境都用一套，这里就不作区分了
-axios.defaults.baseURL = process.env.NODE_ENV == 'development' ? '//47.99.134.126:28019/api/v1' : '//47.99.134.126:28019/api/v1'
+axios.defaults.baseURL = process.env.NODE_ENV == 'development' ? '//backend-api-01.newbee.ltd/api/v1' : '//backend-api-01.newbee.ltd/api/v1'
 // 跨域请求是要不要携带cookie，本课程没有跨域请求的情况
 axios.defaults.withCredentials = true
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
@@ -16,12 +17,11 @@ axios.interceptors.response.use(res => {
         Toast.fail('服务端异常！')
         return Promise.reject(res)
     }
-    if (res.data.resultCode != 200) {
+    if (res.data.resultCode !== 200) {
         if (res.data.message) Toast.fail(res.data.message)
-        if (res.data.resultCode == 416) {
-            // 返回 416 代表没有登录状态，路由跳转到/login 页面（目前还为创建组件），这里的 window.vRouter 是在
-            // main.js 里面设置好的 window.vRouter = router
-            window.vRouter.push({ path: '/login' })
+        if (res.data.resultCode === 416) {
+            // 返回 416 代表没有登录状态，路由跳转到/login 页面
+            router.push({path:'/login'})
         }
         return Promise.reject(res.data)
     }
