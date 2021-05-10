@@ -37,14 +37,14 @@ const routes = [
       index: 1
     }
   },
-  // {
-  //   path: '/product-list',
-  //   name: 'product-list',
-  //   component: () => import(/* webpackChunkName: "product-list" */ '@/views/ProductList.vue'),
-  //   meta: {
-  //     index: 2
-  //   }
-  // },
+  {
+    path: '/product-list',
+    name: 'product-list',
+    component: () => import(/* webpackChunkName: "product-list" */ '@/views/ProductList.vue'),
+    meta: {
+      index: 2
+    }
+  },
   // {
   //   path: '/product/:id',
   //   name: 'product',
