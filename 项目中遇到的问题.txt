@@ -15,3 +15,4 @@
 
 5.Vue  render函数 和各个子组件的钩子函数和生命周期的整个流程顺序问题，这个可能要去看源码和log做测试
 
+6.Vue  vue-router 的 useRoute 与useRouter的区别，搞清楚每个组件中的route中存储了什么状态

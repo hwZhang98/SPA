@@ -5,7 +5,7 @@
     <div class="simple-header-name">{{ name }}</div>
     <i class="nbicon nbiconmore"></i>
   </header>
-  <div class="block" />
+  <div class="block" />       <!-- 这个块的作用就是占位，这样子下面的内容就不会被头部遮盖-->
 </template>
 
 <script>

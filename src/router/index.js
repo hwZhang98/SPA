@@ -45,14 +45,14 @@ const routes = [
       index: 2
     }
   },
-  // {
-  //   path: '/product/:id',
-  //   name: 'product',
-  //   component: () => import(/* webpackChunkName: "product" */ '@/views/ProductDetail.vue'),
-  //   meta: {
-  //     index: 3
-  //   }
-  // },
+  {
+    path: '/product/:id',
+    name: 'product',
+    component: () => import(/* webpackChunkName: "product" */ '@/views/ProductDetail.vue'),
+    meta: {
+      index: 3
+    }
+  },
   {
     path: '/cart',
     name: 'cart',
