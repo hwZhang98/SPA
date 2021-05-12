@@ -1,4 +1,5 @@
 # spa
+一个单页面商城应用，仅做个人学习使用，[原项目地址](https://github.com/newbee-ltd/newbee-mall-vue3-app)
 
 ## Project setup
 ```
