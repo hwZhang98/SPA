@@ -10,7 +10,7 @@
         <span>分类</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="cart">
-        <i class="nbicon nbicongouwuche"></i>
+        <van-icon name="shopping-cart-o" :badge="!count ? '' : count"/>
         <span>购物车</span>
       </router-link>
       <router-link tag="li" class="nav-list-item" to="user">
